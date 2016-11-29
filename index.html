@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="utf-8">
+    <script type="text/javascript" src="libs.js"></script>
+    <script type="text/javascript" src="javascript.js"></script>
     <title></title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -11,13 +13,15 @@
     </style>
 </head>
 
-<body>
+<body onload='main()'>
     <canvas id="karta"></canvas>
     <script>
         var canvas = document.getElementById("karta");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         var ctx = c.getContext("2d");
+         <canvas id='your_canvas'
+            style='position: absolute; background-color: black;'></canvas>
     </script>
 </body>
 

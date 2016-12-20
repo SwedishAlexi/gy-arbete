@@ -1,29 +1,44 @@
 <!DOCTYPE html>
+<!-- Leker med WebGL Earth -->
 <html lang="sv">
 
 <head>
-    <meta charset="utf-8">
-    <script type="text/javascript" src="libs.js"></script>
-    <script type="text/javascript" src="javascript.js"></script>
-    <title></title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        canvas {
+    <!-- Laddar in API -->
+    <script src="http://www.webglearth.com/v2/api.js"></script>
+
+    <script>
+        /* Konstruktor, initialiserar vår jord och tillåter inställningar för den. Går att ladda in karta och andra objekt som vi kommer använda.*/
+        function initialize() {
+            /* Välj inställningar */
+            var inställningar = {
+          sky: true,
+          atmosphere: true,
+          dragging: true,
+          tilting: true,
+          zooming: true,
+          zoom: 2.5
+        };
+            /* Sätt in inställningarna */
+            var jorden = new WE.map('jordklot_div', inställningar);
+
+            /* Skapar en layer att sätta över globen, och lägger det till jorden genom .addto. Vi drog layern från openstreetmap.*/
+            WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(jorden);
         }
-    </style>
+    </script>
+
+    <meta charset="utf-8">
+    <title>Jordklot</title>
+    <link rel="stylesheet" href="test.css">
 </head>
 
-<body onload='main()'>
-    <canvas id="karta"></canvas>
-    <script>
-        var canvas = document.getElementById("karta");
+ <!-- Kör initialize när body laddas -->
+<body onload="initialize()">
+<!-- Skapar en div som innehåller jorden-objektet -->
+<div id="jordklot_div"></div>
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        var gl = canvas.getContext("webgl");
-
-    </script>
 </body>
+
 
 </html>

@@ -5,27 +5,29 @@
 <head>
     <!-- Laddar in API -->
     <script src="http://www.webglearth.com/v2/api.js"></script>
+    <script src="https://github.com/krisk/Fuse/blob/master/src/fuse.js"></script>
 
     <script>
         /* Konstruktor, initialiserar vår jord och tillåter inställningar för den. Går att ladda in karta och andra objekt som vi kommer använda.*/
         function initialize() {
             /* Välj inställningar */
             var inställningar = {
-          sky: true,
-          atmosphere: true,
-          dragging: true,
-          tilting: true,
-          zooming: true,
-          zoom: 2.5
-        };
+                sky: true,
+                atmosphere: true,
+                dragging: true,
+                tilting: true,
+                zooming: true,
+                zoom: 2.5
+            };
             /* Sätt in inställningarna */
             var jorden = new WE.map('jordklot_div', inställningar);
 
             /* Skapar en layer att sätta över globen, och lägger det till jorden genom .addto. Vi drog layern från openstreetmap.*/
-            WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            WE.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZG9jbWhhcnRpIiwiYSI6ImNpeXZqZTRkajAwNWUzMm56OTQ1ZjE2amcifQ.-4LGa5CLrokM-hz0ZVXvTg', {
                 attribution: '© OpenStreetMap contributors'
-            }).addTo(jorden);
+            }).addTo(jorden); /* http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png */
         }
+
     </script>
 
     <meta charset="utf-8">
@@ -33,10 +35,23 @@
     <link rel="stylesheet" href="test.css">
 </head>
 
- <!-- Kör initialize när body laddas -->
+<!-- Kör initialize när body laddas -->
+
 <body onload="initialize()">
-<!-- Skapar en div som innehåller jorden-objektet -->
-<div id="jordklot_div"></div>
+
+    <!-- Drop down meny -->
+    <div class="droppMeny">
+        <button onclick="droppa()" class="droppKnapp">Platser</button>
+        <div id="droppKropp" class="droppInneholl">
+            <input type="text" placeholder="Sök.." id="Inmatning" onkeyup="filterFunktion()">
+            <a href="#sverige">Sverige</a>
+            <a href="#england">England</a>
+        </div>
+    </div>
+
+    <!-- Skapar en div som innehåller jorden-objektet -->
+    <div id="jordklot_div"></div>
+    <script src="test.js"></script>
 
 </body>
 

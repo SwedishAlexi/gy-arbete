@@ -1,0 +1,84 @@
+<!--Viktigt länk för flera kartor: https://www.mapbox.com/api-documentation/?language=JavaScript#reading-this-documentation-->
+
+
+<!DOCTYPE HTML>
+<html lang="sv">
+
+<head>
+    <script src="http://www.webglearth.com/v2/api.js"></script>
+    <meta charset="utf-8">
+    <title>Gymnasiearbete</title>
+    <link rel="stylesheet" href="arbete.css">
+    <script>
+        var jorden;
+
+        function init() {
+            jorden = WE.map('map', {
+                zoom: 2.5,
+                dragging: true,
+                scrollWheelZoom: true,
+            });
+
+            var baselayer = WE.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZG9jbWhhcnRpIiwiYSI6ImNpeXZqZTRkajAwNWUzMm56OTQ1ZjE2amcifQ.-4LGa5CLrokM-hz0ZVXvTg').addTo(jorden);
+
+            //Print coordinates of the mouse
+            jorden.on('mousemove', function(e) {
+                document.getElementById('coords').innerHTML = e.latlng.lat + ', ' + e.latlng.lng;
+            });
+        }
+
+        function setZoom(zoom) {
+            zoom = prompt("Zooma till?")
+            map.setZoom(zoom);
+        }
+
+        function getZoomLevel() {
+            alert('Nuvarande zoom: ' + Math.round(jorden.getZoom()));
+        }
+
+        function setPositionToEverest() {
+            jorden.setView([27.988056, 86.925278]);
+        }
+
+        function setPositionToSkolan() {
+            jorden.setView([59.34687958095494, 18.04936821582736]);
+        }
+
+        function getCurrentCenter() {
+            alert(jorden.getCenter());
+        }
+
+        function goTo() {
+            lat = prompt("Latitud")
+            lng = prompt("Longitud")
+            jorden.setView([lat, lng]);
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <div class="droppMeny">
+        <button onclick="droppa()" class="droppKnapp">Funktioner</button>
+        <div id="droppKropp" class="droppInneholl">
+            <input type="text" placeholder="Sök.." id="Inmatning" onkeyup="filterFunktion()">
+
+            <a onclick="setZoom();">Zooma</a>
+
+            <a onclick="getZoomLevel();">Nuvarande zoom</a>
+
+            <a onclick="getCurrentCenter();">Nuvarande position</a>
+
+            <a href="#Mt.Everest" onclick="setPositionToEverest();">Position Mt.Everest</a>
+
+            <a href="#cyber" onclick="setPositionToSkolan();">Position Cyber</a>
+
+            <a onclick="goTo();">Välj en position</a>
+        </div>
+    </div>
+    <div id="map"></div>
+    <div id="coords"></div>
+    <script src="arbete.js"></script>
+</body>
+
+</html>
